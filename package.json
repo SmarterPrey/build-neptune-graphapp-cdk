@@ -10,8 +10,8 @@
     "test": "jest",
     "cdk": "cdk",
     "generateEnv": "node generateEnv.mjs",
-    "deployBackend": "cdk deploy --app \"npx ts-node --prefer-ts-exts bin/backend.ts\" -O cdk-infra.json",
-    "deployFrontend": "cdk deploy --app \"npx ts-node --prefer-ts-exts bin/frontend.ts\"",
+    "deployBackend": "cdk deploy --app \"npx ts-node --prefer-ts-exts bin/backend.ts\" -O cdk-infra.json --require-approval never",
+    "deployFrontend": "cdk deploy --app \"npx ts-node --prefer-ts-exts bin/frontend.ts\" --require-approval never",
     "destroyBackend": "cdk destroy --app \"npx ts-node --prefer-ts-exts bin/backend.ts\"",
     "destroyFrontend": "cdk destroy --app \"npx ts-node --prefer-ts-exts bin/frontend.ts\""
   },

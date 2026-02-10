@@ -1,0 +1,173 @@
+name: Deploy to AWS
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  AWS_REGION: us-east-1
+  AWS_ACCOUNT_ID: 384492676078
+  CDK_DEFAULT_ACCOUNT: 384492676078
+  CDK_DEFAULT_REGION: us-east-1
+  NODE_VERSION: '18'
+
+jobs:
+  deploy-backend:
+    name: Deploy Backend Infrastructure
+    runs-on: ubuntu-latest
+    outputs:
+      backend-completed: ${{ steps.deploy.outputs.completed }}
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install pnpm
+        run: npm install -g pnpm
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::${{ env.AWS_ACCOUNT_ID }}:role/GitHubActionsDeployRole
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check CDK bootstrap status
+        id: check-bootstrap
+        run: |
+          echo "Checking CDK bootstrap status..."
+          aws cloudformation describe-stacks --stack-name CDKToolkit --region ${{ env.AWS_REGION }} || echo "CDK not bootstrapped"
+
+      - name: Deploy backend stacks
+        id: deploy
+        run: |
+          echo "Deploying backend infrastructure..."
+          npm run deployBackend -- --all
+          echo "completed=true" >> $GITHUB_OUTPUT
+
+      - name: Upload backend outputs
+        uses: actions/upload-artifact@v4
+        with:
+          name: cdk-infra-outputs
+          path: cdk-infra.json
+          retention-days: 1
+
+      - name: Display backend outputs
+        run: |
+          echo "Backend deployment completed!"
+          if [ -f cdk-infra.json ]; then
+            echo "CDK Outputs:"
+            cat cdk-infra.json | jq '.'
+          fi
+
+  deploy-frontend:
+    name: Deploy Frontend Application
+    runs-on: ubuntu-latest
+    needs: deploy-backend
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install pnpm
+        run: npm install -g pnpm
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::${{ env.AWS_ACCOUNT_ID }}:role/GitHubActionsDeployRole
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Download backend outputs
+        uses: actions/download-artifact@v4
+        with:
+          name: cdk-infra-outputs
+
+      - name: Generate frontend environment variables
+        run: |
+          echo "Generating frontend .env file..."
+          npm run generateEnv
+
+      - name: Display frontend environment
+        run: |
+          if [ -f app/web/.env ]; then
+            echo "Frontend environment variables generated:"
+            cat app/web/.env
+          fi
+
+      - name: Deploy frontend stack
+        run: |
+          echo "Deploying frontend application..."
+          npm run deployFrontend -- --all
+
+      - name: Extract and display outputs
+        id: outputs
+        run: |
+          # Get CloudFront URL from CDK outputs
+          CLOUDFRONT_URL=$(aws cloudformation describe-stacks \
+            --stack-name graphApp-WebappStack \
+            --region ${{ env.AWS_REGION }} \
+            --query 'Stacks[0].Outputs[?OutputKey==`webappurl4CF7BBD7`].OutputValue' \
+            --output text)
+          
+          echo "cloudfront-url=$CLOUDFRONT_URL" >> $GITHUB_OUTPUT
+          
+          # Display all outputs
+          echo "==================================="
+          echo "Deployment Completed Successfully!"
+          echo "==================================="
+          echo ""
+          echo "CloudFront URL: https://$CLOUDFRONT_URL"
+          echo ""
+          
+          if [ -f cdk-infra.json ]; then
+            echo "Backend API Details:"
+            GRAPHQL_URL=$(cat cdk-infra.json | jq -r '.[].apiGraphqlUrl // empty' | head -1)
+            USERPOOL_ID=$(cat cdk-infra.json | jq -r '.[].cognitoUserPoolId // empty' | head -1)
+            
+            if [ ! -z "$GRAPHQL_URL" ]; then
+              echo "  GraphQL API: $GRAPHQL_URL"
+            fi
+            if [ ! -z "$USERPOOL_ID" ]; then
+              echo "  Cognito User Pool: $USERPOOL_ID"
+            fi
+          fi
+          
+          echo ""
+          echo "==================================="
+
+      - name: Summary
+        run: |
+          echo "## Deployment Summary :rocket:" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Application URL" >> $GITHUB_STEP_SUMMARY
+          echo "- **CloudFront**: https://${{ steps.outputs.outputs.cloudfront-url }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Deployment Details" >> $GITHUB_STEP_SUMMARY
+          echo "- **AWS Account**: ${{ env.AWS_ACCOUNT_ID }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Region**: ${{ env.AWS_REGION }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Commit**: ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "✅ All stacks deployed successfully!" >> $GITHUB_STEP_SUMMARY

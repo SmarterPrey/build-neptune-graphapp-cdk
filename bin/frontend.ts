@@ -15,7 +15,7 @@ cdk.Aspects.of(app).add(
 );
 const appName = deployConfig.appName || "graphApp";
 const env = {
-  account: process.env.CDK_DEFAULT_ACCOUNT,
+  account: process.env.CDK_DEFAULT_ACCOUNT || process.env.AWS_ACCOUNT_ID,
   region: deployConfig.region || process.env.CDK_DEFAULT_REGION,
 };
 
