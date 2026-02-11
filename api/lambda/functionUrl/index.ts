@@ -67,6 +67,11 @@ export const handler: Handler = awslambda.streamifyResponse(
         });
         const response: BulkLoadResponse = await res.json();
         console.log(response);
+        
+        if (!response.payload || !response.payload.loadId) {
+          throw new Error(`Bulk load failed: ${JSON.stringify(response)}`);
+        }
+        
         const loadId = response.payload.loadId;
 
         const loadCheckReq = await signer.sign(
