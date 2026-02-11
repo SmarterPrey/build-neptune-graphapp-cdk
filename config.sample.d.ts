@@ -1,3 +1,4 @@
+import { RemovalPolicy } from "aws-cdk-lib";
 declare const deployConfig: {
     stage: string;
     appName: string;
@@ -5,7 +6,7 @@ declare const deployConfig: {
     adminEmail: string;
     allowedIps: never[];
     wafParamName: string;
-    webBucketsRemovalPolicy: any;
+    webBucketsRemovalPolicy: RemovalPolicy;
     s3Uri: {
         edge: string;
         vertex: string;
