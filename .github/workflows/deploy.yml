@@ -3,6 +3,8 @@ name: Deploy to AWS
 on:
   push:
     branches: [main]
+    paths-ignore:
+      - '**/*.md'
   workflow_dispatch:
     inputs:
       deploy-target:
@@ -68,6 +70,9 @@ jobs:
           BACKEND=false
           FRONTEND=false
           CHANGED=$(git diff --name-only HEAD~1 HEAD 2>/dev/null || echo "")
+
+          # Exclude markdown files from change detection
+          CHANGED=$(echo "$CHANGED" | grep -v '\.md$' || echo "")
 
           # Backend paths: CDK infra, API, Lambda, lib, bin, config, data
           if echo "$CHANGED" | grep -qE '^(lib/|bin/|api/|data/|config\.|cdk\.|nag/|package\.json|tsconfig\.json)'; then
