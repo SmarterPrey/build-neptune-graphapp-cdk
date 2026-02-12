@@ -1,5 +1,8 @@
 import {
+  Arn,
+  ArnFormat,
   Duration,
+  Stack,
   StackProps,
   aws_iam,
   aws_lambda,
@@ -35,6 +38,17 @@ export class NeptuneScheduler extends Construct {
     // but the underlying CFN resource has it. Use clusterResourceIdentifier
     // via the cluster endpoint address to derive it, or use Fn::Select.
     const clusterIdentifier = cluster.clusterIdentifier;
+
+    // Construct the cluster ARN (not exposed by the L2 construct)
+    const clusterArn = Arn.format(
+      {
+        service: "rds",
+        resource: "cluster",
+        resourceName: clusterIdentifier,
+        arnFormat: ArnFormat.COLON_RESOURCE_NAME,
+      },
+      Stack.of(this)
+    );
 
     // -----------------------------------------------------------------------
     // Lambda that stops / starts the Neptune cluster
@@ -75,7 +89,7 @@ export class NeptuneScheduler extends Construct {
           "rds:StartDBCluster",
           "rds:DescribeDBClusters",
         ],
-        resources: [cluster.clusterArn],
+        resources: [clusterArn],
       })
     );
 
