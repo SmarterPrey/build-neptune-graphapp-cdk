@@ -1,0 +1,121 @@
+name: Neptune Cluster Control
+
+on:
+  workflow_dispatch:
+    inputs:
+      action:
+        description: 'Action to perform on Neptune cluster'
+        required: true
+        type: choice
+        options:
+          - stop
+          - start
+          - status
+
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  AWS_REGION: us-east-1
+  AWS_ACCOUNT_ID: 384492676078
+
+jobs:
+  neptune-control:
+    name: "${{ inputs.action }} Neptune cluster"
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::${{ env.AWS_ACCOUNT_ID }}:role/GitHubActionsDeployRole
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Get Lambda function name
+        id: lambda
+        run: |
+          FN_NAME=$(aws lambda list-functions \
+            --query "Functions[?contains(FunctionName, 'neptunescheduler')].FunctionName" \
+            --output text --region ${{ env.AWS_REGION }})
+
+          if [ -z "$FN_NAME" ]; then
+            echo "::error::Neptune scheduler Lambda not found"
+            exit 1
+          fi
+          echo "function-name=$FN_NAME" >> $GITHUB_OUTPUT
+          echo "Found Lambda: $FN_NAME"
+
+      - name: Get current cluster status
+        id: before-status
+        run: |
+          STATUS=$(aws neptune describe-db-clusters \
+            --query "DBClusters[0].Status" \
+            --output text --region ${{ env.AWS_REGION }})
+          echo "status=$STATUS" >> $GITHUB_OUTPUT
+          echo "Current cluster status: **$STATUS**" >> $GITHUB_STEP_SUMMARY
+
+      - name: Invoke scheduler Lambda
+        if: inputs.action != 'status'
+        id: invoke
+        run: |
+          echo "Invoking Lambda with action: ${{ inputs.action }}"
+
+          RESPONSE=$(aws lambda invoke \
+            --function-name ${{ steps.lambda.outputs.function-name }} \
+            --payload '{"action":"${{ inputs.action }}"}' \
+            --cli-binary-format raw-in-base64-out \
+            --region ${{ env.AWS_REGION }} \
+            --output text \
+            --query 'StatusCode' \
+            /tmp/response.json)
+
+          echo "Lambda status code: $RESPONSE"
+          echo "Lambda response:"
+          cat /tmp/response.json
+          echo ""
+
+          if [ "$RESPONSE" != "200" ]; then
+            echo "::error::Lambda invocation failed with status $RESPONSE"
+            cat /tmp/response.json
+            exit 1
+          fi
+
+      - name: Wait for status change
+        if: inputs.action != 'status'
+        run: |
+          echo "Waiting for cluster to begin transitioning..."
+          for i in $(seq 1 12); do
+            STATUS=$(aws neptune describe-db-clusters \
+              --query "DBClusters[0].Status" \
+              --output text --region ${{ env.AWS_REGION }})
+            echo "  [$i/12] Status: $STATUS"
+
+            if [[ "${{ inputs.action }}" == "stop" && "$STATUS" =~ ^(stopping|stopped)$ ]]; then
+              echo "Cluster is $STATUS"
+              break
+            elif [[ "${{ inputs.action }}" == "start" && "$STATUS" =~ ^(starting|available)$ ]]; then
+              echo "Cluster is $STATUS"
+              break
+            fi
+            sleep 10
+          done
+
+      - name: Summary
+        run: |
+          STATUS=$(aws neptune describe-db-clusters \
+            --query "DBClusters[0].Status" \
+            --output text --region ${{ env.AWS_REGION }})
+
+          CLUSTER_ID=$(aws neptune describe-db-clusters \
+            --query "DBClusters[0].DBClusterIdentifier" \
+            --output text --region ${{ env.AWS_REGION }})
+
+          echo "## Neptune Cluster Control" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Field | Value |" >> $GITHUB_STEP_SUMMARY
+          echo "|-------|-------|" >> $GITHUB_STEP_SUMMARY
+          echo "| **Action** | \`${{ inputs.action }}\` |" >> $GITHUB_STEP_SUMMARY
+          echo "| **Cluster** | \`$CLUSTER_ID\` |" >> $GITHUB_STEP_SUMMARY
+          echo "| **Before** | \`${{ steps.before-status.outputs.status }}\` |" >> $GITHUB_STEP_SUMMARY
+          echo "| **Current** | \`$STATUS\` |" >> $GITHUB_STEP_SUMMARY

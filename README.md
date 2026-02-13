@@ -166,6 +166,36 @@ End streaming response%
 - `npm run generateEnv`
   - Generate the environment variables in `.env` for frontend.
 
+## Neptune Cluster Control
+
+The Neptune cluster is scheduled to automatically stop at **midnight Pacific** and start at **4pm Pacific** to save costs. You can also manually control the cluster at any time using the **Neptune Cluster Control** workflow.
+
+### GitHub CLI
+
+```bash
+# Check current cluster status
+gh workflow run neptune-control.yml -f action=status
+
+# Start the cluster
+gh workflow run neptune-control.yml -f action=start
+
+# Stop the cluster
+gh workflow run neptune-control.yml -f action=stop
+```
+
+### GitHub UI
+
+1. Go to **Actions** → **Neptune Cluster Control**
+2. Click **Run workflow**
+3. Select `start`, `stop`, or `status`
+4. Click **Run workflow**
+
+### Copilot
+
+You can also ask GitHub Copilot to run the workflow:
+
+> "Run the Neptune Cluster Control workflow with action start"
+
 ## CI/CD Setup Guide
 
 ### Setting up AWS OIDC for GitHub Actions

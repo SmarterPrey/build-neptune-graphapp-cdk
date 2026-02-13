@@ -1,3 +1,4 @@
+/// <reference types="node" />
 import { Handler } from "aws-lambda";
 declare global {
     namespace awslambda {
