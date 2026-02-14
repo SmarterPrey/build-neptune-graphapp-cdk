@@ -76,6 +76,11 @@ async function getEmailsFromParameter(parameterName) {
     console.log(\`Found \${emails.length} email(s) in parameter: \${emails.join(", ")}\`);
     return emails;
   } catch (error) {
+    // If parameter doesn't exist, return empty array (deployment can proceed)
+    if (error.name === "ParameterNotFound" || error.Code === "ParameterNotFound") {
+      console.warn(\`Parameter \${parameterName} not found. No email subscriptions will be created.\`);
+      return [];
+    }
     console.error("Error reading parameter:", error);
     throw new Error(\`Failed to read parameter \${parameterName}: \${error.message}\`);
   }
