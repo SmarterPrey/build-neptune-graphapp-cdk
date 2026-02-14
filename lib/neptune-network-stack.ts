@@ -115,13 +115,13 @@ export class NeptuneNetworkStack extends Stack {
       new aws_sns_subscriptions.SmsSubscription("+12069927749")
     );
 
-    // RDS Event Subscription: notify on cluster availability, failover, and maintenance events
+    // RDS Event Subscription: notify on cluster failover, maintenance, and notification events
     new aws_rds.CfnEventSubscription(this, "NeptuneEventSubscription", {
       snsTopicArn: neptuneStatusTopic.topicArn,
       sourceType: "db-cluster",
       sourceIds: [this.cluster.clusterIdentifier],
       enabled: true,
-      eventCategories: ["availability", "failover", "maintenance", "notification"],
+      eventCategories: ["failover", "failure", "maintenance", "notification"],
     });
   }
 }
