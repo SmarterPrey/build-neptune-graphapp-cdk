@@ -231,26 +231,8 @@ exports.handler = async (event) => {
       })
     );
 
-    // Create the custom resource
-    const provider = new CustomResourceSDK.Provider(
-      this,
-      "EmailSubscriberProvider",
-      {
-        onEventHandler: handler,
-        logRetention: aws_logs.RetentionDays.ONE_WEEK,
-      }
-    );
-
-    new CustomResource(this, "EmailSubscriberResource", {
-      serviceToken: provider.serviceToken,
-      properties: {
-        TopicArn: topicArn,
-        ParameterName: parameterName,
-      },
-    });
-
     // -----------------------------------------------------------------------
-    // cdk-nag suppressions
+    // cdk-nag suppressions for handler (must be before provider creation)
     // -----------------------------------------------------------------------
     NagSuppressions.addResourceSuppressions(
       handler,
@@ -271,6 +253,27 @@ exports.handler = async (event) => {
       true
     );
 
+    // Create the custom resource
+    const provider = new CustomResourceSDK.Provider(
+      this,
+      "EmailSubscriberProvider",
+      {
+        onEventHandler: handler,
+        logRetention: aws_logs.RetentionDays.ONE_WEEK,
+      }
+    );
+
+    new CustomResource(this, "EmailSubscriberResource", {
+      serviceToken: provider.serviceToken,
+      properties: {
+        TopicArn: topicArn,
+        ParameterName: parameterName,
+      },
+    });
+
+    // -----------------------------------------------------------------------
+    // cdk-nag suppressions for provider
+    // -----------------------------------------------------------------------
     NagSuppressions.addResourceSuppressions(
       provider,
       [
