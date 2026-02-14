@@ -4,6 +4,7 @@ import { Construct } from "constructs";
 import * as aws_iam from "aws-cdk-lib/aws-iam";
 import * as aws_lambda from "aws-cdk-lib/aws-lambda";
 import * as aws_logs from "aws-cdk-lib/aws-logs";
+import { NagSuppressions } from "cdk-nag";
 import * as path from "path";
 
 export interface ParameterEmailSubscriberProps {
@@ -51,7 +52,7 @@ export class ParameterEmailSubscriber extends Construct {
       "EmailSubscriberHandler",
       {
         uuid: "parameter-email-subscriber-handler",
-        runtime: aws_lambda.Runtime.NODEJS_18_X,
+        runtime: aws_lambda.Runtime.NODEJS_22_X,
         handler: "index.handler",
         code: aws_lambda.Code.fromInline(`
 const { SSMClient, GetParameterCommand } = require("@aws-sdk/client-ssm");
@@ -247,5 +248,52 @@ exports.handler = async (event) => {
         ParameterName: parameterName,
       },
     });
+
+    // -----------------------------------------------------------------------
+    // cdk-nag suppressions
+    // -----------------------------------------------------------------------
+    NagSuppressions.addResourceSuppressions(
+      handler,
+      [
+        {
+          id: "AwsSolutions-IAM4",
+          reason:
+            "AWSLambdaBasicExecutionRole is required for CloudWatch Logs access",
+          appliesTo: [
+            "Policy::arn:<AWS::Partition>:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+          ],
+        },
+        {
+          id: "AwsSolutions-L1",
+          reason: "NODEJS_22_X is the latest supported runtime at deploy time",
+        },
+      ],
+      true
+    );
+
+    NagSuppressions.addResourceSuppressions(
+      provider,
+      [
+        {
+          id: "AwsSolutions-IAM4",
+          reason:
+            "AWSLambdaBasicExecutionRole is required for CloudWatch Logs access - CDK managed resource",
+          appliesTo: [
+            "Policy::arn:<AWS::Partition>:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+          ],
+        },
+        {
+          id: "AwsSolutions-IAM5",
+          reason:
+            "Wildcard permissions required for custom resource provider framework - CDK managed resource",
+        },
+        {
+          id: "AwsSolutions-L1",
+          reason:
+            "Custom resource provider uses CDK-managed Lambda runtime - CDK managed resource",
+        },
+      ],
+      true
+    );
   }
 }

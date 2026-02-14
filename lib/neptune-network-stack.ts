@@ -1,6 +1,7 @@
 import { Stack, StackProps, aws_ec2, aws_iam, aws_kms, aws_sns, aws_rds } from "aws-cdk-lib";
 import { Construct } from "constructs";
 import * as neptune from "@aws-cdk/aws-neptune-alpha";
+import { NagSuppressions } from "cdk-nag";
 import { Network } from "./constructs/network";
 import { Neptune } from "./constructs/neptune";
 import { NeptuneScheduler } from "./constructs/neptune-scheduler";
@@ -126,5 +127,24 @@ export class NeptuneNetworkStack extends Stack {
       enabled: true,
       eventCategories: ["failover", "failure", "maintenance", "notification"],
     });
+
+    // -----------------------------------------------------------------------
+    // cdk-nag stack-level suppressions
+    // -----------------------------------------------------------------------
+    NagSuppressions.addStackSuppressions(this, [
+      {
+        id: "AwsSolutions-IAM4",
+        reason:
+          "AWSLambdaBasicExecutionRole is required for CloudWatch Logs access - CDK managed resource",
+        appliesTo: [
+          "Policy::arn:<AWS::Partition>:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+        ],
+      },
+      {
+        id: "AwsSolutions-IAM5",
+        reason: "Wildcard permissions required for CDK managed resources",
+        appliesTo: ["Resource::*"],
+      },
+    ]);
   }
 }
