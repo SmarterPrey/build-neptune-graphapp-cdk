@@ -1,4 +1,4 @@
-import { Stack, StackProps, aws_ec2, aws_iam } from "aws-cdk-lib";
+import { Stack, StackProps, aws_ec2, aws_iam, aws_sns, aws_sns_subscriptions, aws_rds } from "aws-cdk-lib";
 import { Construct } from "constructs";
 import * as neptune from "@aws-cdk/aws-neptune-alpha";
 import { Network } from "./constructs/network";
@@ -64,5 +64,23 @@ export class NeptuneNetworkStack extends Stack {
         startHour: neptuneSchedule.startHour,
       });
     }
+
+    // SNS topic for Neptune cluster state change notifications
+    const neptuneStatusTopic = new aws_sns.Topic(this, "NeptuneStatusTopic", {
+      displayName: "Neptune Cluster Status Notifications",
+    });
+
+    neptuneStatusTopic.addSubscription(
+      new aws_sns_subscriptions.SmsSubscription("+12069927749")
+    );
+
+    // RDS Event Subscription: notify on cluster availability, failover, and maintenance events
+    new aws_rds.CfnEventSubscription(this, "NeptuneEventSubscription", {
+      snsTopicArn: neptuneStatusTopic.topicArn,
+      sourceType: "db-cluster",
+      sourceIds: [this.cluster.clusterIdentifier],
+      enabled: true,
+      eventCategories: ["availability", "failover", "maintenance", "notification"],
+    });
   }
 }
