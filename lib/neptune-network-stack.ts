@@ -1,9 +1,10 @@
-import { Stack, StackProps, aws_ec2, aws_iam, aws_kms, aws_sns, aws_sns_subscriptions, aws_rds } from "aws-cdk-lib";
+import { Stack, StackProps, aws_ec2, aws_iam, aws_kms, aws_sns, aws_rds } from "aws-cdk-lib";
 import { Construct } from "constructs";
 import * as neptune from "@aws-cdk/aws-neptune-alpha";
 import { Network } from "./constructs/network";
 import { Neptune } from "./constructs/neptune";
 import { NeptuneScheduler } from "./constructs/neptune-scheduler";
+import { ParameterEmailSubscriber } from "./constructs/parameter-email-subscriber";
 
 interface NeptuneScheduleConfig {
   /** Enable scheduled stop/start of Neptune (default: false) */
@@ -111,9 +112,11 @@ export class NeptuneNetworkStack extends Stack {
       })
     );
 
-    neptuneStatusTopic.addSubscription(
-      new aws_sns_subscriptions.SmsSubscription("+12069927749")
-    );
+    // Subscribe email addresses from Parameter Store
+    new ParameterEmailSubscriber(this, "NeptuneEmailSubscriber", {
+      topicArn: neptuneStatusTopic.topicArn,
+      parameterName: "/global-app-params/rdsnotificationemails",
+    });
 
     // RDS Event Subscription: notify on cluster failover, maintenance, and notification events
     new aws_rds.CfnEventSubscription(this, "NeptuneEventSubscription", {
