@@ -1,4 +1,4 @@
-import { Stack, StackProps, aws_ec2, aws_iam, aws_sns, aws_sns_subscriptions, aws_rds } from "aws-cdk-lib";
+import { Stack, StackProps, aws_ec2, aws_iam, aws_kms, aws_sns, aws_sns_subscriptions, aws_rds } from "aws-cdk-lib";
 import { Construct } from "constructs";
 import * as neptune from "@aws-cdk/aws-neptune-alpha";
 import { Network } from "./constructs/network";
@@ -66,9 +66,50 @@ export class NeptuneNetworkStack extends Stack {
     }
 
     // SNS topic for Neptune cluster state change notifications
+    const neptuneStatusKey = new aws_kms.Key(this, "NeptuneStatusTopicKey", {
+      description: "KMS key for Neptune status SNS topic encryption",
+      enableKeyRotation: true,
+    });
+
     const neptuneStatusTopic = new aws_sns.Topic(this, "NeptuneStatusTopic", {
       displayName: "Neptune Cluster Status Notifications",
+      masterKey: neptuneStatusKey,
     });
+
+    // Enforce SSL-only access to the topic (AwsSolutions-SNS3)
+    neptuneStatusTopic.addToResourcePolicy(
+      new aws_iam.PolicyStatement({
+        sid: "AllowPublishThroughSSLOnly",
+        effect: aws_iam.Effect.DENY,
+        principals: [new aws_iam.AnyPrincipal()],
+        actions: ["sns:Publish"],
+        resources: [neptuneStatusTopic.topicArn],
+        conditions: {
+          Bool: { "aws:SecureTransport": "false" },
+        },
+      })
+    );
+
+    // Allow RDS/Neptune to publish to this encrypted topic
+    neptuneStatusTopic.addToResourcePolicy(
+      new aws_iam.PolicyStatement({
+        sid: "AllowRDSPublish",
+        effect: aws_iam.Effect.ALLOW,
+        principals: [new aws_iam.ServicePrincipal("events.rds.amazonaws.com")],
+        actions: ["sns:Publish"],
+        resources: [neptuneStatusTopic.topicArn],
+      })
+    );
+
+    neptuneStatusKey.addToResourcePolicy(
+      new aws_iam.PolicyStatement({
+        sid: "AllowRDSUseKey",
+        effect: aws_iam.Effect.ALLOW,
+        principals: [new aws_iam.ServicePrincipal("events.rds.amazonaws.com")],
+        actions: ["kms:Decrypt", "kms:GenerateDataKey*"],
+        resources: ["*"],
+      })
+    );
 
     neptuneStatusTopic.addSubscription(
       new aws_sns_subscriptions.SmsSubscription("+12069927749")
