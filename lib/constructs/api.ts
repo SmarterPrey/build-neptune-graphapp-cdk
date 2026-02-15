@@ -112,7 +112,7 @@ export class Api extends Construct {
 
     // AWS Lambda for graph application
     const NodejsFunctionBaseProps: aws_lambda_nodejs.NodejsFunctionProps = {
-      runtime: aws_lambda.Runtime.NODEJS_20_X,
+      runtime: aws_lambda.Runtime.NODEJS_24_X,
 
       // entry: `./api/lambda/${lambdaName}.ts`,
       depsLockFilePath: "./api/lambda/package-lock.json",

@@ -52,7 +52,7 @@ export class ParameterEmailSubscriber extends Construct {
       "EmailSubscriberHandler",
       {
         uuid: "parameter-email-subscriber-handler",
-        runtime: aws_lambda.Runtime.NODEJS_22_X,
+        runtime: aws_lambda.Runtime.NODEJS_24_X,
         handler: "index.handler",
         code: aws_lambda.Code.fromInline(`
 const { SSMClient, GetParameterCommand } = require("@aws-sdk/client-ssm");

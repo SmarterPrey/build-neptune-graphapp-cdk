@@ -58,7 +58,7 @@ export class NeptuneScheduler extends Construct {
       this,
       "neptune-scheduler-fn",
       {
-        runtime: aws_lambda.Runtime.NODEJS_22_X,
+        runtime: aws_lambda.Runtime.NODEJS_24_X,
         entry: path.join(
           __dirname,
           "..",
