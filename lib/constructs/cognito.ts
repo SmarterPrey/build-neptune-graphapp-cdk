@@ -48,7 +48,8 @@ export class Cognito extends Construct {
       accountRecovery: aws_cognito.AccountRecovery.EMAIL_ONLY,
       removalPolicy: RemovalPolicy.DESTROY,
       selfSignUpEnabled: false,
-      advancedSecurityMode: aws_cognito.AdvancedSecurityMode.ENFORCED,
+      featurePlan: aws_cognito.FeaturePlan.PLUS,
+      standardThreatProtectionMode: aws_cognito.StandardThreatProtectionMode.FULL_FUNCTION,
       autoVerify: {
         email: true,
       },
