@@ -46,6 +46,15 @@ export class ParameterEmailSubscriber extends Construct {
     const stack = Stack.of(this);
     const effectiveRegion = region || stack.region;
 
+    // Create log group for Lambda function
+    const handlerLogGroup = new aws_logs.LogGroup(
+      this,
+      "EmailSubscriberHandlerLogGroup",
+      {
+        retention: aws_logs.RetentionDays.ONE_WEEK,
+      }
+    );
+
     // Create Lambda function for custom resource handler
     const handler = new aws_lambda.SingletonFunction(
       this,
@@ -54,6 +63,7 @@ export class ParameterEmailSubscriber extends Construct {
         uuid: "parameter-email-subscriber-handler",
         runtime: aws_lambda.Runtime.NODEJS_24_X,
         handler: "index.handler",
+        logGroup: handlerLogGroup,
         code: aws_lambda.Code.fromInline(`
 const { SSMClient, GetParameterCommand } = require("@aws-sdk/client-ssm");
 const { SNSClient, SubscribeCommand, UnsubscribeCommand, ListSubscriptionsByTopicCommand } = require("@aws-sdk/client-sns");
@@ -198,7 +208,6 @@ exports.handler = async (event) => {
 };
         `),
         timeout: Duration.seconds(30),
-        logRetention: aws_logs.RetentionDays.ONE_WEEK,
       }
     );
 
@@ -258,13 +267,22 @@ exports.handler = async (event) => {
       true
     );
 
+    // Create log group for custom resource provider
+    const providerLogGroup = new aws_logs.LogGroup(
+      this,
+      "EmailSubscriberProviderLogGroup",
+      {
+        retention: aws_logs.RetentionDays.ONE_WEEK,
+      }
+    );
+
     // Create the custom resource
     const provider = new CustomResourceSDK.Provider(
       this,
       "EmailSubscriberProvider",
       {
         onEventHandler: handler,
-        logRetention: aws_logs.RetentionDays.ONE_WEEK,
+        logGroup: providerLogGroup,
       }
     );
 
