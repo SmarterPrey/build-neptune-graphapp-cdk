@@ -16,12 +16,20 @@ import { Graph } from "@/types/types";
 import { queryGetGraph, queryGetProfile } from "@/lib/utils";
 import { toast } from "@/components/ui/use-toast";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useTheme } from "@/components/theme-provider";
 
 export const Route = createFileRoute("/_authenticated/_layout/graph")({
   component: Graph3D,
 });
 
 function Graph3D() {
+  const { theme } = useTheme();
+  const resolvedTheme =
+    theme === "system"
+      ? window.matchMedia("(prefers-color-scheme: dark)").matches
+        ? "dark"
+        : "light"
+      : theme;
   const [value] = useState("id");
   const [name, setName] = useState("");
   const [state, setState] = useState<{
@@ -151,7 +159,7 @@ function Graph3D() {
       <ForceGraph3D
         graphData={state}
         nodeAutoColorBy={"label"}
-        backgroundColor={"white"}
+        backgroundColor={resolvedTheme === "dark" ? "#000000" : "#ffffff"}
         // linkAutoColorBy={"label"}
         height={displayHeight}
         width={displayWidth}
