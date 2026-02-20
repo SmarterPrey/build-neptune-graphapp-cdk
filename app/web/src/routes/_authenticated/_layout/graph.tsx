@@ -151,6 +151,7 @@ function Graph3D() {
       <ForceGraph3D
         graphData={state}
         nodeAutoColorBy={"label"}
+        backgroundColor={"white"}
         // linkAutoColorBy={"label"}
         height={displayHeight}
         width={displayWidth}
