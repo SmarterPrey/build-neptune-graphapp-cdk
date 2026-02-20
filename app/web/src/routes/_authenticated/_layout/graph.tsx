@@ -178,7 +178,7 @@ function Graph3D() {
           return sprite;
         }}
         linkThreeObjectExtend={true}
-        linkColor={() => resolvedTheme === "dark" ? "#666666" : "#999999"}
+        linkColor={() => resolvedTheme === "dark" ? "#999999" : "#333333"}
         linkThreeObject={(link) => {
           // extend link with text sprite
           const sprite = new SpriteText(`${link.source} > ${link.target}`);
