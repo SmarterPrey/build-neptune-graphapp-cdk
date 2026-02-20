@@ -50,7 +50,7 @@ new ApiStack(app, `${appName}-ApiStack`, {
   vpc: neptuneNetwork.vpc,
   cluster: neptuneNetwork.cluster,
   clusterRole: neptuneNetwork.neptuneRole,
-  graphqlFieldName: ["getGraph", "getProfile", "getRelationName", "insertData"],
+  graphqlFieldName: ["getGraph", "getProfile", "getRelationName", "insertData", "askGraph"],
   s3Uri: deployConfig.s3Uri,
   env,
 });

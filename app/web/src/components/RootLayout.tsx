@@ -64,14 +64,14 @@ export const MainLayout = ({ children }: { children: ReactNode }) => {
             <Tooltip>
               <TooltipTrigger asChild>
                 <Link
-                  href="#"
+                  to="/chat"
                   className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
                 >
                   <BrainCircuit className="h-5 w-5" />
-                  <span className="sr-only">Amazon SageMaker</span>
+                  <span className="sr-only">Graph AI Chat</span>
                 </Link>
               </TooltipTrigger>
-              <TooltipContent side="right">Amazon SageMaker</TooltipContent>
+              <TooltipContent side="right">Graph AI Chat</TooltipContent>
             </Tooltip>
           </TooltipProvider>
           <TooltipProvider>

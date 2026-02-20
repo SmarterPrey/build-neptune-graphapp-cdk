@@ -34,3 +34,13 @@ export const getGraph = /* GraphQL */ `
     }
   }
 `;
+
+export const askGraph = /* GraphQL */ `
+  query askGraph($question: String!, $history: String) {
+    askGraph(question: $question, history: $history) {
+      answer
+      query
+      data
+    }
+  }
+`;

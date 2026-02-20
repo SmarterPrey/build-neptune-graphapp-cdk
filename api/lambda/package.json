@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@aws-sdk/client-bedrock-runtime": "^3.994.0",
     "gremlin": "^3.7.2",
     "gremlin-aws-sigv4": "^3.6.1"
   },

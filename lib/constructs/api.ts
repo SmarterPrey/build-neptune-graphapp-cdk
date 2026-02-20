@@ -138,6 +138,66 @@ export class Api extends Construct {
     graphql.grantQuery(queryFn);
     queryFn.connections.allowTo(cluster, aws_ec2.Port.tcp(8182));
 
+    // AI Query Lambda (Bedrock + Neptune)
+    const aiQueryRole = new aws_iam.Role(this, "aiQueryRole", {
+      assumedBy: new aws_iam.ServicePrincipal("lambda.amazonaws.com"),
+    });
+    aiQueryRole.addToPrincipalPolicy(
+      new aws_iam.PolicyStatement({
+        resources: ["*"],
+        actions: [
+          "logs:CreateLogGroup",
+          "logs:CreateLogStream",
+          "logs:PutLogEvents",
+          "ec2:CreateNetworkInterface",
+          "ec2:DescribeNetworkInterfaces",
+          "ec2:DescribeSubnets",
+          "ec2:DeleteNetworkInterface",
+          "ec2:AssignPrivateIpAddresses",
+          "ec2:UnassignPrivateIpAddresses",
+        ],
+      })
+    );
+    aiQueryRole.addToPrincipalPolicy(
+      new aws_iam.PolicyStatement({
+        resources: [
+          `arn:aws:bedrock:${Stack.of(this).region}::foundation-model/*`,
+        ],
+        actions: ["bedrock:InvokeModel"],
+      })
+    );
+    cluster.grantConnect(aiQueryRole);
+
+    const aiQueryFn = new aws_lambda_nodejs.NodejsFunction(
+      this,
+      "aiQueryFn",
+      {
+        ...NodejsFunctionBaseProps,
+        entry: "./api/lambda/aiQuery.ts",
+        role: aiQueryRole,
+        timeout: Duration.minutes(2),
+        environment: {
+          NEPTUNE_ENDPOINT: cluster.clusterReadEndpoint.hostname,
+          NEPTUNE_PORT: cluster.clusterReadEndpoint.port.toString(),
+          BEDROCK_REGION: Stack.of(this).region,
+          MODEL_ID: "anthropic.claude-3-haiku-20240307-v1:0",
+        },
+        bundling: {
+          nodeModules: [
+            "gremlin",
+            "gremlin-aws-sigv4",
+            "@aws-sdk/client-bedrock-runtime",
+          ],
+        },
+        vpcSubnets: {
+          subnets: vpc.publicSubnets,
+        },
+        allowPublicSubnet: true,
+      }
+    );
+    graphql.grantQuery(aiQueryFn);
+    aiQueryFn.connections.allowTo(cluster, aws_ec2.Port.tcp(8182));
+
     const mutationFn = new aws_lambda_nodejs.NodejsFunction(
       this,
       "mutationFn",
@@ -198,15 +258,25 @@ export class Api extends Construct {
 
     graphqlFieldName.map((filedName: string) => {
       // Data sources
+      let targetFn;
+      if (filedName === "askGraph") {
+        targetFn = aiQueryFn;
+      } else if (filedName.startsWith("get")) {
+        targetFn = queryFn;
+      } else {
+        targetFn = mutationFn;
+      }
       const datasource = graphql.addLambdaDataSource(
         `${filedName}DS`,
-        filedName.startsWith("get") ? queryFn : mutationFn
+        targetFn
       );
       queryFn.addEnvironment("GRAPHQL_ENDPOINT", this.graphqlUrl);
       // Resolver
       datasource.createResolver(`${filedName}Resolver`, {
         fieldName: `${filedName}`,
-        typeName: filedName.startsWith("get") ? "Query" : "Mutation",
+        typeName: filedName.startsWith("get") || filedName.startsWith("ask")
+          ? "Query"
+          : "Mutation",
         requestMappingTemplate: MappingTemplate.fromFile(
           `./api/graphql/resolvers/requests/${filedName}.vtl`
         ),
@@ -242,6 +312,16 @@ export class Api extends Construct {
         {
           id: "AwsSolutions-IAM5",
           reason: "Need the permission for accessing database in Vpc",
+        },
+      ],
+      true
+    );
+    NagSuppressions.addResourceSuppressions(
+      aiQueryRole,
+      [
+        {
+          id: "AwsSolutions-IAM5",
+          reason: "Need the permission for Bedrock and VPC access",
         },
       ],
       true
