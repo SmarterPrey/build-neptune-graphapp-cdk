@@ -178,23 +178,24 @@ function Graph3D() {
           return sprite;
         }}
         linkThreeObjectExtend={true}
-        //   linkThreeObject={(link) => {
-        //     // extend link with text sprite
-        //     const sprite = new SpriteText(`${link.source} > ${link.target}`);
-        //     sprite.color = "lightgrey";
-        //     sprite.textHeight = 1.5;
-        //     return sprite;
-        //   }}
-        //   linkPositionUpdate={(sprite, { start, end }) => {
-        //     const middlePos = Object.assign(
-        //       ...["x", "y", "z"].map((c) => ({
-        //         [c]: start[c] + (end[c] - start[c]) / 2, // calc middle point
-        //       }))
-        //     );
+        linkColor={() => resolvedTheme === "dark" ? "#666666" : "#999999"}
+        linkThreeObject={(link) => {
+          // extend link with text sprite
+          const sprite = new SpriteText(`${link.source} > ${link.target}`);
+          sprite.color = "lightgrey";
+          sprite.textHeight = 1.5;
+          return sprite;
+        }}
+        linkPositionUpdate={(sprite, { start, end }) => {
+          const middlePos = Object.assign(
+            ...["x", "y", "z"].map((c) => ({
+              [c]: start[c] + (end[c] - start[c]) / 2, // calc middle point
+            }))
+          );
 
-        //     // Position sprite
-        //     Object.assign(sprite.position, middlePos);
-        //   }}
+          // Position sprite
+          Object.assign(sprite.position, middlePos);
+        }}
       />
     </main>
 
