@@ -198,7 +198,9 @@ exports.handler = async (event) => {
 };
         `),
         timeout: Duration.seconds(30),
-        logRetention: aws_logs.RetentionDays.ONE_WEEK,
+        logGroup: new aws_logs.LogGroup(this, 'EmailSubscriberLogGroup', {
+          retention: aws_logs.RetentionDays.ONE_WEEK,
+        }),
       }
     );
 
@@ -264,7 +266,9 @@ exports.handler = async (event) => {
       "EmailSubscriberProvider",
       {
         onEventHandler: handler,
-        logRetention: aws_logs.RetentionDays.ONE_WEEK,
+        logGroup: new aws_logs.LogGroup(this, 'EmailSubscriberProviderLogGroup', {
+          retention: aws_logs.RetentionDays.ONE_WEEK,
+        }),
       }
     );
 

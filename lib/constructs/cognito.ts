@@ -48,7 +48,9 @@ export class Cognito extends Construct {
       accountRecovery: aws_cognito.AccountRecovery.EMAIL_ONLY,
       removalPolicy: RemovalPolicy.DESTROY,
       selfSignUpEnabled: false,
-      advancedSecurityMode: aws_cognito.AdvancedSecurityMode.ENFORCED,
+      // advancedSecurityMode is deprecated. Use StandardThreatProtectionMode and CustomThreatProtectionMode instead.
+      standardThreatProtectionMode: aws_cognito.StandardThreatProtectionMode.FULL_FUNCTION,
+      // customThreatProtectionMode: aws_cognito.CustomThreatProtectionMode.ENABLED, // Uncomment and configure as needed
       autoVerify: {
         email: true,
       },
