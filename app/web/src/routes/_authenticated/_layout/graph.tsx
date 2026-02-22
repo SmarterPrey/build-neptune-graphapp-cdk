@@ -178,23 +178,23 @@ function Graph3D() {
           return sprite;
         }}
         linkThreeObjectExtend={true}
-        //   linkThreeObject={(link) => {
-        //     // extend link with text sprite
-        //     const sprite = new SpriteText(`${link.source} > ${link.target}`);
-        //     sprite.color = "lightgrey";
-        //     sprite.textHeight = 1.5;
-        //     return sprite;
-        //   }}
-        //   linkPositionUpdate={(sprite, { start, end }) => {
-        //     const middlePos = Object.assign(
-        //       ...["x", "y", "z"].map((c) => ({
-        //         [c]: start[c] + (end[c] - start[c]) / 2, // calc middle point
-        //       }))
-        //     );
+        linkColor={() => resolvedTheme === "dark" ? "#999999" : "#333333"}
+        linkThreeObject={(link: { source: string; target: string }) => {
+          // extend link with text sprite
+          const sprite = new SpriteText(`${link.source} > ${link.target}`);
+          sprite.color = "lightgrey";
+          sprite.textHeight = 1.5;
+          return sprite;
+        }}
+        linkPositionUpdate={(sprite: { position: Record<string, number> }, { start, end }: { start: Record<string, number>; end: Record<string, number> }) => {
+          const middlePos: Record<string, number> = {};
+          ["x", "y", "z"].forEach((c) => {
+            middlePos[c] = start[c] + (end[c] - start[c]) / 2;
+          });
 
-        //     // Position sprite
-        //     Object.assign(sprite.position, middlePos);
-        //   }}
+          // Position sprite
+          Object.assign(sprite.position, middlePos);
+        }}
       />
     </main>
 

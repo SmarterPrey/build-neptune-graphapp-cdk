@@ -83,9 +83,19 @@ export class Network extends Construct {
       privateDnsEnabled: true,
     });
 
+    const bedrockEndpoint = new aws_ec2.InterfaceVpcEndpoint(
+      this,
+      "bedrock-vep",
+      {
+        service: aws_ec2.InterfaceVpcEndpointAwsService.BEDROCK_RUNTIME,
+        vpc: this.vpc,
+        privateDnsEnabled: true,
+      }
+    );
+
     // Nag supressions
     NagSuppressions.addResourceSuppressions(
-      [CWEndpoint, CWLEndpoint],
+      [CWEndpoint, CWLEndpoint, bedrockEndpoint],
       [
         {
           id: "CdkNagValidationFailure",

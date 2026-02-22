@@ -31,6 +31,12 @@ type Links {
   value: String
 }
 
+type AiResponse {
+  answer: String
+  query: String
+  data: String
+}
+
 ############################### Inputs ###############################
 input InsertDataInput {
   value: String!
@@ -51,6 +57,8 @@ type Query {
   getProfile(type: String!, name: String!, value: String!): [Profile]
     @aws_cognito_user_pools
   getGraph(type: String!, value: String!): Graph @aws_cognito_user_pools
+  askGraph(question: String!, history: String): AiResponse
+    @aws_cognito_user_pools
 }
 ############################### Mutations ###############################
 type Mutation {

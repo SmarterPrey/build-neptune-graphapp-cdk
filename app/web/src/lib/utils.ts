@@ -1,8 +1,9 @@
-import { getGraph, getProfile, getRelationName } from "@/api/appsync/query";
+import { getGraph, getProfile, getRelationName, askGraph } from "@/api/appsync/query";
 import {
   GetGraphQuery,
   GetRelationNameQuery,
   GetProfileQuery,
+  AskGraphQuery,
 } from "@/types/types";
 import { GraphQLResult, generateClient } from "aws-amplify/api";
 import { type ClassValue, clsx } from "clsx";
@@ -52,5 +53,20 @@ export const queryGetGraph = async (value: string) => {
       value,
     },
   })) as GraphQLResult<GetGraphQuery>;
+  return res;
+};
+
+export const queryAskGraph = async (
+  question: string,
+  history?: string
+) => {
+  const client = generateClient();
+  const res = (await client.graphql({
+    query: askGraph,
+    variables: {
+      question,
+      history: history || null,
+    },
+  })) as GraphQLResult<AskGraphQuery>;
   return res;
 };

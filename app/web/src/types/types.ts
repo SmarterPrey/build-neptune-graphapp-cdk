@@ -67,3 +67,11 @@ export type GetGraphQuery = {
     }>;
   };
 };
+
+export type AskGraphQuery = {
+  askGraph: {
+    answer: string;
+    query: string | null;
+    data: string | null;
+  };
+};

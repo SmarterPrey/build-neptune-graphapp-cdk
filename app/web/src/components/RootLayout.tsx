@@ -4,7 +4,7 @@ import {
   Home,
   Settings,
   ScatterChart,
-  BrainCircuit,
+  MessageSquare,
   CopyPlus,
   Database,
   LogOut,
@@ -49,29 +49,31 @@ export const MainLayout = ({ children }: { children: ReactNode }) => {
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>
-                <Link
-                  href="https://us-east-1.console.aws.amazon.com/neptune/home?region=us-east-1"
+                <a
+                  href="https://us-east-1.console.aws.amazon.com/neptune/home?region=us-east-1#graph-explorer"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
                 >
                   <Database className="h-5 w-5" />
-                  <span className="sr-only">Amazon Neptune</span>
-                </Link>
+                  <span className="sr-only">Graph Explorer</span>
+                </a>
               </TooltipTrigger>
-              <TooltipContent side="right">Amazon Neptune</TooltipContent>
+              <TooltipContent side="right">Graph Explorer</TooltipContent>
             </Tooltip>
           </TooltipProvider>
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>
                 <Link
-                  href="#"
+                  to="/chat"
                   className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
                 >
-                  <BrainCircuit className="h-5 w-5" />
-                  <span className="sr-only">Amazon SageMaker</span>
+                  <MessageSquare className="h-5 w-5" />
+                  <span className="sr-only">Neptune GraphDB Chatbot</span>
                 </Link>
               </TooltipTrigger>
-              <TooltipContent side="right">Amazon SageMaker</TooltipContent>
+              <TooltipContent side="right">Neptune GraphDB Chatbot</TooltipContent>
             </Tooltip>
           </TooltipProvider>
           <TooltipProvider>
