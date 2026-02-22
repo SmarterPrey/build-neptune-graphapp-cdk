@@ -2,9 +2,7 @@ import { Handler } from "aws-lambda";
 import * as gremlin from "gremlin";
 import { getUrlAndHeaders } from "gremlin-aws-sigv4/lib/utils";
 
-const DriverRemoteConnection = gremlin.driver.DriverRemoteConnection;
-const traversal = gremlin.process.AnonymousTraversalSource.traversal;
-const P = gremlin.process.P;
+const Client = gremlin.driver.Client;
 
 const BEDROCK_REGION = process.env.BEDROCK_REGION || "us-east-1";
 const MODEL_ID = process.env.MODEL_ID || "amazon.nova-lite-v1:0";
@@ -101,7 +99,21 @@ async function invokeBedrock(messages: BedrockMessage[]): Promise<string> {
   return output[0].text;
 }
 
-function createRemoteConnection() {
+// Gremlin steps that mutate the graph — these are not allowed in read-only mode
+const MUTATION_PATTERN =
+  /\b(addV|addE|addVertex|addEdge|drop|property|iterate|sideEffect|inject)\s*\(/i;
+
+function validateGremlinQuery(queryString: string): void {
+  if (MUTATION_PATTERN.test(queryString)) {
+    throw new Error(
+      "Query contains mutation operations which are not allowed"
+    );
+  }
+}
+
+async function executeGremlin(queryString: string): Promise<unknown> {
+  validateGremlinQuery(queryString);
+
   const { url, headers } = getUrlAndHeaders(
     process.env.NEPTUNE_ENDPOINT,
     process.env.NEPTUNE_PORT,
@@ -110,39 +122,19 @@ function createRemoteConnection() {
     "wss"
   );
 
-  const c = new DriverRemoteConnection(url, {
+  const client = new Client(url, {
     mimeType: "application/vnd.gremlin-v2.0+json",
     headers: headers,
   });
 
-  c._client._connection.on("close", (code: number, message: string) => {
-    console.info(`close - ${code} ${message}`);
-    if (code === 1006) {
-      console.error("Connection closed prematurely");
-      throw new Error("Connection closed prematurely");
-    }
-  });
-
-  return c;
-}
-
-async function executeGremlin(queryString: string): Promise<unknown> {
-  const conn = createRemoteConnection();
-  const g = traversal().withRemote(conn);
-
   try {
-    // Build the traversal dynamically by evaluating the query string
-    // We use Function constructor to safely evaluate the Gremlin query
-    const queryFn = new Function(
-      "g",
-      "P",
-      `return g.${queryString}`
-    );
-    const result = await queryFn(g, P);
-    return result;
+    // Submit the query string to the Gremlin server for server-side execution.
+    // This avoids local JavaScript evaluation (no Function constructor / eval).
+    const result = await client.submit(`g.${queryString}`);
+    return result.toArray ? result.toArray() : result;
   } finally {
     try {
-      await conn.close();
+      await client.close();
     } catch (e) {
       console.warn("Error closing connection:", e);
     }
