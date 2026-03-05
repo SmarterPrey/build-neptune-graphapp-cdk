@@ -95,3 +95,73 @@ part_19,Part,,,,,,,,,,,,,,,,,,,,,jb5_boat_hull_film,Boat Hull Film (per ft),,,,8
 part_20,Part,,,,,,,,,,,,,,,,,,,,,jb5_jetski_nose_guard,JetSki Nose Guard,,,,350,,,,,,,,,,,,,,,,,
 project_data_1,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Alpha Initiative,D-1001,Internal,Platform Engineering,IT Operations,Standard,1
 project_data_2,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Beta Analytics,D-2042,Confidential,Data Science,Analytics Group,Critical,2
+project_data_3,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Cloud Migration Phase 2,D-3010,Confidential,Cloud Infrastructure,IT Operations,Critical,1
+project_data_4,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Data Lake Implementation,D-2042,Restricted,Data Engineering,Analytics Group,Critical,1
+project_data_5,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Customer Portal Redesign,D-4100,Internal,Frontend Development,Application Development,Standard,2
+project_data_6,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Zero Trust Network Rollout,D-5005,Restricted,Security Engineering,Security,Critical,1
+project_data_7,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Mobile App Modernization,D-4100,Internal,Mobile Team,Application Development,Standard,2
+project_data_8,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,ERP System Upgrade,D-6001,Confidential,Enterprise Systems,IT Operations,Priority,1
+project_data_9,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,DevOps Pipeline Automation,D-3010,Internal,DevOps,Cloud Infrastructure,Standard,2
+project_data_10,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Fraud Detection Engine,D-2042,Restricted,Data Science,Analytics Group,Critical,1
+project_data_11,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Legacy Database Migration,D-6001,Confidential,Database Administration,IT Operations,Priority,1
+project_data_12,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,AI Chatbot Integration,D-7200,Internal,AI/ML Team,Innovation Lab,Standard,3
+project_data_13,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Disaster Recovery Overhaul,D-5005,Restricted,Infrastructure,Security,Critical,1
+project_data_14,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Vendor Management Portal,D-8030,Internal,Procurement Tech,Finance,Standard,3
+project_data_15,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Real-Time Analytics Dashboard,D-2042,Confidential,Data Science,Analytics Group,Priority,2
+project_data_16,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,SOC 2 Compliance Automation,D-5005,Restricted,Compliance Engineering,Security,Critical,1
+project_data_17,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Kubernetes Cluster Expansion,D-3010,Internal,Cloud Infrastructure,IT Operations,Standard,2
+project_data_18,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Employee Onboarding App,D-9010,Public,HR Technology,Human Resources,Best Effort,4
+project_data_19,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,API Gateway Consolidation,D-3010,Confidential,Platform Engineering,Cloud Infrastructure,Priority,2
+project_data_20,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Supply Chain Visibility Tool,D-8030,Internal,Logistics Tech,Operations,Standard,3
+project_data_21,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Observability Platform Build,D-3010,Internal,DevOps,Cloud Infrastructure,Priority,2
+project_data_22,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,PCI DSS Remediation,D-5005,Restricted,Security Engineering,Security,Critical,1
+project_data_23,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Identity Access Management Refactor,D-5005,Restricted,Security Engineering,Security,Critical,1
+project_data_24,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Warehouse Inventory System,D-8030,Internal,Logistics Tech,Operations,Standard,3
+project_data_25,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Data Governance Framework,D-2042,Confidential,Data Engineering,Analytics Group,Priority,2
+project_data_26,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Multi-Region Failover Setup,D-3010,Restricted,Cloud Infrastructure,IT Operations,Critical,1
+project_data_27,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Customer 360 Data Hub,D-2042,Confidential,Data Science,Analytics Group,Priority,1
+project_data_28,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Digital Signature Service,D-5005,Restricted,Security Engineering,Security,Priority,2
+project_data_29,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Internal Knowledge Base,D-9010,Public,HR Technology,Human Resources,Best Effort,4
+project_data_30,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Automated Invoice Processing,D-8030,Confidential,Procurement Tech,Finance,Standard,3
+project_data_31,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Edge Computing Rollout,D-3010,Internal,Cloud Infrastructure,IT Operations,Priority,2
+project_data_32,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Predictive Maintenance Engine,D-7200,Confidential,AI/ML Team,Innovation Lab,Standard,2
+project_data_33,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Sales Forecasting Model,D-2042,Confidential,Data Science,Analytics Group,Standard,3
+project_data_34,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,CI/CD Security Scanning,D-5005,Restricted,DevSecOps,Security,Critical,1
+project_data_35,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,GraphQL API Standardization,D-4100,Internal,Platform Engineering,Application Development,Standard,2
+project_data_36,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Learning Management System,D-9010,Public,HR Technology,Human Resources,Best Effort,4
+project_data_37,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Network Segmentation Project,D-5005,Restricted,Network Engineering,Security,Critical,1
+project_data_38,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Microservices Decomposition,D-4100,Internal,Backend Engineering,Application Development,Priority,2
+project_data_39,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Cost Optimization Dashboard,D-3010,Internal,FinOps,Cloud Infrastructure,Standard,3
+project_data_40,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Contract Lifecycle Management,D-8030,Confidential,Procurement Tech,Finance,Standard,3
+project_data_41,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Voice of Customer Analytics,D-2042,Confidential,Data Science,Analytics Group,Standard,2
+project_data_42,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Incident Response Automation,D-5005,Restricted,Security Engineering,Security,Critical,1
+project_data_43,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Terraform State Consolidation,D-3010,Internal,DevOps,Cloud Infrastructure,Standard,2
+project_data_44,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Product Recommendation Engine,D-7200,Confidential,AI/ML Team,Innovation Lab,Priority,2
+project_data_45,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Single Sign-On Migration,D-5005,Restricted,Identity Team,Security,Priority,1
+project_data_46,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Fleet Tracking Dashboard,D-8030,Internal,Logistics Tech,Operations,Standard,3
+project_data_47,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Compliance Reporting Suite,D-5005,Confidential,Compliance Engineering,Security,Priority,2
+project_data_48,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Service Mesh Implementation,D-3010,Internal,Cloud Infrastructure,IT Operations,Standard,2
+project_data_49,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Customer Churn Predictor,D-2042,Confidential,Data Science,Analytics Group,Standard,2
+project_data_50,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Budget Planning Application,D-6001,Confidential,Enterprise Systems,Finance,Priority,2
+project_data_51,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Capacity Planning Tool,D-3010,Internal,Cloud Infrastructure,IT Operations,Standard,2
+project_data_52,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Document Classification AI,D-7200,Restricted,AI/ML Team,Innovation Lab,Priority,2
+project_data_53,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Time Tracking Modernization,D-9010,Internal,HR Technology,Human Resources,Best Effort,4
+project_data_54,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Payment Gateway Upgrade,D-6001,Restricted,Enterprise Systems,Finance,Critical,1
+project_data_55,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Log Aggregation Pipeline,D-3010,Internal,DevOps,Cloud Infrastructure,Standard,2
+project_data_56,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Marketing Attribution Model,D-2042,Confidential,Data Science,Analytics Group,Standard,3
+project_data_57,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Endpoint Detection and Response,D-5005,Restricted,Security Engineering,Security,Critical,1
+project_data_58,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Feature Flag Platform,D-4100,Internal,Platform Engineering,Application Development,Standard,3
+project_data_59,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,AR Warehouse Navigation,D-7200,Confidential,AI/ML Team,Innovation Lab,Best Effort,4
+project_data_60,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Secrets Management Overhaul,D-5005,Restricted,Security Engineering,Security,Critical,1
+project_data_61,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Performance Testing Framework,D-4100,Internal,QA Engineering,Application Development,Standard,3
+project_data_62,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Energy Consumption Monitor,D-8030,Public,Facilities Tech,Operations,Best Effort,4
+project_data_63,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Data Catalog Initiative,D-2042,Internal,Data Engineering,Analytics Group,Standard,2
+project_data_64,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Chaos Engineering Program,D-3010,Internal,Site Reliability,Cloud Infrastructure,Standard,3
+project_data_65,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Benefits Enrollment Portal,D-9010,Confidential,HR Technology,Human Resources,Priority,2
+project_data_66,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,DNS Infrastructure Upgrade,D-3010,Internal,Network Engineering,IT Operations,Priority,2
+project_data_67,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Sentiment Analysis Pipeline,D-2042,Confidential,Data Science,Analytics Group,Standard,3
+project_data_68,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Privileged Access Management,D-5005,Restricted,Identity Team,Security,Critical,1
+project_data_69,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Regulatory Reporting Automation,D-6001,Confidential,Compliance Engineering,Finance,Priority,2
+project_data_70,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Event-Driven Architecture Migration,D-4100,Internal,Backend Engineering,Application Development,Priority,2
+project_data_71,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Digital Twin Prototype,D-7200,Confidential,AI/ML Team,Innovation Lab,Best Effort,3
+project_data_72,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Carbon Footprint Tracker,D-8030,Public,Sustainability Tech,Operations,Best Effort,4
