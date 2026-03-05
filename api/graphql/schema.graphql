@@ -56,6 +56,17 @@ type SearchResult {
   entityType: String
 }
 
+type ProjectData {
+  id: String!
+  projectName: String!
+  DepartmentNumber: String
+  DataClassification: String
+  Team: String
+  OwnerGroup: String
+  Recovery: String
+  Tier: String
+}
+
 ############################### Inputs ###############################
 input InsertDataInput {
   value: String!
@@ -81,6 +92,7 @@ type Query {
     @aws_cognito_user_pools
   searchEntities(vertexType: String!, searchValue: String): [SearchResult]
     @aws_cognito_user_pools
+  searchProjects(searchValue: String): [ProjectData] @aws_cognito_user_pools
   getEntityProperties(vertexType: String!, searchValue: String, vertexId: String): [EntityProperty]
     @aws_cognito_user_pools
   getEntityEdges(vertexType: String!, searchValue: String, vertexId: String): [EdgeRelation]
