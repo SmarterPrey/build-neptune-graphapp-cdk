@@ -59,6 +59,7 @@ export const handler: Handler = async (event) => {
       Asset: { label: 'Asset', fields: ['make', 'model', 'vin'] },
       Job: { label: 'Job', fields: ['jobName'] },
       Part: { label: 'Part', fields: ['partName'] },
+      Project_Data: { label: 'Project_Data', fields: ['projectName'] },
     };
 
     if (event.field === "searchEntities") {
@@ -104,6 +105,40 @@ export const handler: Handler = async (event) => {
         name: r.name ?? (r.get ? r.get('name') : undefined),
         label: r.label ?? (r.get ? r.get('label') : undefined),
         entityType: r.entityType || (r.get ? r.get('entityType') : null) || null,
+      }));
+    }
+
+    if (event.field === "searchProjects") {
+      const { searchValue } = event.arguments;
+      const trimmed = (searchValue || '').trim();
+
+      let searchQuery = g!.V().hasLabel('Project_Data');
+      if (trimmed) {
+        searchQuery = searchQuery.has('projectName', TextP.startingWith(trimmed));
+      }
+
+      const results = await searchQuery
+        .project('id', 'projectName', 'DepartmentNumber', 'DataClassification', 'Team', 'OwnerGroup', 'Recovery', 'Tier')
+        .by(__.id())
+        .by(__.coalesce(__.values('projectName'), __.constant('')))
+        .by(__.coalesce(__.values('DepartmentNumber'), __.constant('')))
+        .by(__.coalesce(__.values('DataClassification'), __.constant('')))
+        .by(__.coalesce(__.values('Team'), __.constant('')))
+        .by(__.coalesce(__.values('OwnerGroup'), __.constant('')))
+        .by(__.coalesce(__.values('Recovery'), __.constant('')))
+        .by(__.coalesce(__.values('Tier'), __.constant('')))
+        .limit(200)
+        .toList();
+
+      return results.map((r: any) => ({
+        id: r.id ?? (r.get ? r.get('id') : undefined),
+        projectName: r.projectName ?? (r.get ? r.get('projectName') : ''),
+        DepartmentNumber: r.DepartmentNumber ?? (r.get ? r.get('DepartmentNumber') : ''),
+        DataClassification: r.DataClassification ?? (r.get ? r.get('DataClassification') : ''),
+        Team: r.Team ?? (r.get ? r.get('Team') : ''),
+        OwnerGroup: r.OwnerGroup ?? (r.get ? r.get('OwnerGroup') : ''),
+        Recovery: r.Recovery ?? (r.get ? r.get('Recovery') : ''),
+        Tier: r.Tier ?? (r.get ? r.get('Tier') : ''),
       }));
     }
 
