@@ -8,7 +8,7 @@ import {
   CopyPlus,
   LogOut,
   Activity,
-  FolderOpen,
+  FolderKanban,
 } from "lucide-react";
 
 import {
@@ -110,7 +110,7 @@ export const MainLayout = ({ children }: { children: ReactNode }) => {
                   to="/projects"
                   className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
                 >
-                  <FolderOpen className="h-5 w-5" />
+                  <FolderKanban className="h-5 w-5" />
                   <span className="sr-only">Projects</span>
                 </Link>
               </TooltipTrigger>
