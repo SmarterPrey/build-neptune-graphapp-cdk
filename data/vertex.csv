@@ -93,56 +93,5 @@ part_17,Part,,,,,,,,,,,,,,,,,,,,,jb4_full_front_kit,Full Front Kit,,,,2400,,,,,,
 part_18,Part,,,,,,,,,,,,,,,,,,,,,jb4_rear_bumper,Rear Bumper,,,,650,,,,,,,,,,,,,,,,,
 part_19,Part,,,,,,,,,,,,,,,,,,,,,jb5_boat_hull_film,Boat Hull Film (per ft),,,,85,,,,,,,,,,,,,,,,,
 part_20,Part,,,,,,,,,,,,,,,,,,,,,jb5_jetski_nose_guard,JetSki Nose Guard,,,,350,,,,,,,,,,,,,,,,,
-project_data_1,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Cloud Migration Phase 2,D-100,Confidential,Platform Engineering,Infrastructure,Standard,Tier 1
-project_data_2,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Data Lake Implementation,D-200,Internal,Data Science,Application Development,Priority,Tier 2
-project_data_3,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Customer Portal Redesign,D-350,Public,DevOps,Security,Critical,Tier 3
-project_data_4,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,ERP System Upgrade,D-100,Restricted,Enterprise Architecture,Infrastructure,Critical,Tier 1
-project_data_5,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Zero Trust Network Rollout,D-400,Confidential,Security Operations,Security,Priority,Tier 1
-project_data_6,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Mobile App Modernization,D-200,Internal,Mobile Engineering,Application Development,Standard,Tier 2
-project_data_7,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,API Gateway Consolidation,D-350,Internal,Platform Engineering,Infrastructure,Standard,Tier 2
-project_data_8,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Disaster Recovery Overhaul,D-100,Restricted,SRE,Infrastructure,Critical,Tier 1
-project_data_9,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Compliance Reporting Automation,D-500,Confidential,Data Science,Security,Priority,Tier 2
-project_data_10,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Legacy Database Migration,D-200,Internal,Database Administration,Application Development,Standard,Tier 3
-project_data_11,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Container Platform Build-Out,D-350,Internal,DevOps,Infrastructure,Priority,Tier 2
-project_data_12,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Identity & Access Management Refresh,D-400,Restricted,Security Operations,Security,Critical,Tier 1
-project_data_13,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Business Intelligence Dashboard,D-200,Internal,Data Science,Application Development,Standard,Tier 3
-project_data_14,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Hybrid Cloud Connectivity,D-100,Confidential,Network Engineering,Infrastructure,Priority,Tier 1
-project_data_15,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Customer Data Platform,D-500,Confidential,Data Science,Application Development,Priority,Tier 2
-project_data_16,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,DevSecOps Pipeline Implementation,D-350,Internal,DevOps,Security,Standard,Tier 2
-project_data_17,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Serverless Migration Wave 1,D-200,Internal,Platform Engineering,Application Development,Standard,Tier 3
-project_data_18,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Data Governance Framework,D-500,Restricted,Data Science,Security,Priority,Tier 1
-project_data_19,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Microservices Architecture Transition,D-350,Internal,Application Development,Application Development,Standard,Tier 2
-project_data_20,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Network Segmentation Project,D-100,Confidential,Network Engineering,Infrastructure,Critical,Tier 1
-project_data_21,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,HR Self-Service Portal,D-600,Internal,Enterprise Applications,Application Development,Best Effort,Tier 4
-project_data_22,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Real-Time Analytics Platform,D-200,Confidential,Data Science,Application Development,Priority,Tier 2
-project_data_23,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Endpoint Detection & Response,D-400,Restricted,Security Operations,Security,Critical,Tier 1
-project_data_24,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Storage Tiering Optimization,D-100,Internal,Infrastructure Engineering,Infrastructure,Standard,Tier 3
-project_data_25,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,E-Commerce Platform Upgrade,D-350,Public,Digital Engineering,Application Development,Priority,Tier 2
-project_data_26,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Multi-Region Failover Setup,D-100,Restricted,SRE,Infrastructure,Critical,Tier 1
-project_data_27,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Observability Stack Deployment,D-350,Internal,Platform Engineering,Infrastructure,Standard,Tier 2
-project_data_28,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Supply Chain Analytics,D-200,Confidential,Data Science,Application Development,Priority,Tier 2
-project_data_29,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Privileged Access Management,D-400,Restricted,Security Operations,Security,Critical,Tier 1
-project_data_30,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Service Mesh Implementation,D-350,Internal,DevOps,Infrastructure,Standard,Tier 2
-project_data_31,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Unified Communications Refresh,D-600,Internal,IT Operations,Infrastructure,Best Effort,Tier 4
-project_data_32,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,GraphDB Knowledge Platform,D-200,Confidential,Data Science,Application Development,Priority,Tier 2
-project_data_33,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,SOC 2 Compliance Program,D-400,Restricted,Security Operations,Security,Critical,Tier 1
-project_data_34,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Cost Optimization Initiative,D-100,Internal,FinOps,Infrastructure,Standard,Tier 3
-project_data_35,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Employee Onboarding Automation,D-600,Internal,Enterprise Applications,Application Development,Best Effort,Tier 4
-project_data_36,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Threat Intelligence Integration,D-400,Restricted,Security Operations,Security,Critical,Tier 1
-project_data_37,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Cloud-Native Logging Platform,D-350,Internal,Platform Engineering,Infrastructure,Standard,Tier 2
-project_data_38,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Predictive Maintenance ML Model,D-200,Confidential,Data Science,Application Development,Priority,Tier 2
-project_data_39,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Vendor Risk Management System,D-500,Restricted,Security Operations,Security,Priority,Tier 2
-project_data_40,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Kubernetes Cluster Migration,D-350,Internal,DevOps,Infrastructure,Standard,Tier 2
-project_data_41,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Digital Twin Proof of Concept,D-200,Internal,Innovation Lab,Application Development,Best Effort,Tier 4
-project_data_42,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Payment Gateway Modernization,D-350,Restricted,Digital Engineering,Application Development,Critical,Tier 1
-project_data_43,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Backup & Restore Automation,D-100,Internal,SRE,Infrastructure,Priority,Tier 2
-project_data_44,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,SIEM Platform Upgrade,D-400,Restricted,Security Operations,Security,Critical,Tier 1
-project_data_45,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Data Mesh Architecture,D-200,Confidential,Data Science,Application Development,Priority,Tier 2
-project_data_46,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Internal Developer Platform,D-350,Internal,Platform Engineering,Infrastructure,Standard,Tier 2
-project_data_47,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Customer 360 Data Model,D-500,Confidential,Data Science,Application Development,Priority,Tier 2
-project_data_48,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,DDoS Protection Enhancement,D-400,Restricted,Network Engineering,Security,Critical,Tier 1
-project_data_49,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Infrastructure as Code Adoption,D-100,Internal,DevOps,Infrastructure,Standard,Tier 3
-project_data_50,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Chatbot Integration Platform,D-600,Internal,Digital Engineering,Application Development,Best Effort,Tier 4
-project_data_51,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Data Residency Compliance,D-500,Restricted,Security Operations,Security,Critical,Tier 1
-project_data_52,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Automated Patch Management,D-100,Internal,IT Operations,Infrastructure,Standard,Tier 3
-project_data_53,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,AI/ML Feature Store Build,D-200,Confidential,Data Science,Application Development,Priority,Tier 2
+project_data_1,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Alpha Initiative,D-1001,Internal,Platform Engineering,IT Operations,Standard,1
+project_data_2,Project_Data,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Beta Analytics,D-2042,Confidential,Data Science,Analytics Group,Critical,2
