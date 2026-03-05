@@ -19,6 +19,7 @@ import { Route as AuthenticatedLayoutRegisterImport } from './routes/_authentica
 import { Route as AuthenticatedLayoutGraphImport } from './routes/_authenticated/_layout/graph'
 import { Route as AuthenticatedLayoutChatImport } from './routes/_authenticated/_layout/chat'
 import { Route as AuthenticatedLayoutMonitoringImport } from './routes/_authenticated/_layout/monitoring'
+import { Route as AuthenticatedLayoutProjectsImport } from './routes/_authenticated/_layout/projects'
 
 // Create/Update Routes
 
@@ -63,6 +64,11 @@ const AuthenticatedLayoutMonitoringRoute = AuthenticatedLayoutMonitoringImport.u
   getParentRoute: () => AuthenticatedLayoutRoute,
 } as any)
 
+const AuthenticatedLayoutProjectsRoute = AuthenticatedLayoutProjectsImport.update({
+  path: '/projects',
+  getParentRoute: () => AuthenticatedLayoutRoute,
+} as any)
+
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
@@ -99,6 +105,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedLayoutMonitoringImport
       parentRoute: typeof AuthenticatedLayoutImport
     }
+    '/_authenticated/_layout/projects': {
+      preLoaderRoute: typeof AuthenticatedLayoutProjectsImport
+      parentRoute: typeof AuthenticatedLayoutImport
+    }
   }
 }
 
@@ -112,6 +122,7 @@ export const routeTree = rootRoute.addChildren([
       AuthenticatedLayoutIndexRoute,
       AuthenticatedLayoutChatRoute,
       AuthenticatedLayoutMonitoringRoute,
+      AuthenticatedLayoutProjectsRoute,
     ]),
   ]),
   AuthSigninRoute,

@@ -1,4 +1,4 @@
-import { getGraph, getProfile, getRelationName, askGraph, getEntityProperties, getEntityEdges, searchEntities } from "@/api/appsync/query";
+import { getGraph, getProfile, getRelationName, askGraph, getEntityProperties, getEntityEdges, searchEntities, searchProjects } from "@/api/appsync/query";
 import {
   GetGraphQuery,
   GetRelationNameQuery,
@@ -7,6 +7,7 @@ import {
   GetEntityPropertiesQuery,
   GetEntityEdgesQuery,
   SearchEntitiesQuery,
+  SearchProjectsQuery,
 } from "@/types/types";
 import { GraphQLResult, generateClient } from "aws-amplify/api";
 import { type ClassValue, clsx } from "clsx";
@@ -99,4 +100,11 @@ export const querySearchEntities = async (vertexType: string, searchValue?: stri
     variables: { vertexType, searchValue: searchValue || null },
   })) as GraphQLResult<SearchEntitiesQuery>;
   return res;
+};
+
+export const querySearchProjects = async (searchValue?: string) => {
+  return (await generateClient().graphql({
+    query: searchProjects,
+    variables: { searchValue: searchValue ?? '' },
+  })) as GraphQLResult<SearchProjectsQuery>;
 };

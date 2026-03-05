@@ -75,3 +75,18 @@ export const searchEntities = /* GraphQL */ `
     }
   }
 `;
+
+export const searchProjects = /* GraphQL */ `
+  query searchProjects($searchValue: String) {
+    searchProjects(searchValue: $searchValue) {
+      id
+      projectName
+      DepartmentNumber
+      DataClassification
+      Team
+      OwnerGroup
+      Recovery
+      Tier
+    }
+  }
+`;

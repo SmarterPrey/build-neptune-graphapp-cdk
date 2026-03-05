@@ -121,3 +121,18 @@ export type AskGraphQuery = {
     data: string | null;
   };
 };
+
+export interface ProjectData {
+  id: string;
+  projectName: string;
+  DepartmentNumber?: string;
+  DataClassification?: string;
+  Team?: string;
+  OwnerGroup?: string;
+  Recovery?: string;
+  Tier?: string;
+}
+
+export type SearchProjectsQuery = {
+  searchProjects: ProjectData[];
+};
